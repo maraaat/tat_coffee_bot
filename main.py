@@ -4,13 +4,18 @@ import os
 from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 
+from app.handlers.user_handler import user_router
+from app.database.models import async_main
+
 
 async def main():
+    await async_main()
     load_dotenv()
     bot = Bot(os.getenv("TOKEN"))
     dp = Dispatcher()
+    dp.include_router(user_router)
 
-    await dp.start_polling()
+    await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
