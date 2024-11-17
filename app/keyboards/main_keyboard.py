@@ -16,11 +16,3 @@ async def send_number():
     return contact
 
 
-async def main_menu_kb():
-    kb = [
-        [KeyboardButton(text="Каталог"), KeyboardButton(text="Профиль")],
-        [KeyboardButton(text="Корзина"), KeyboardButton(text="История заказов")]
-    ]
-    keyboard = ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True)
-
-    return keyboard
