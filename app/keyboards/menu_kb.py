@@ -3,7 +3,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardBut
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 
 from app.database.requests import get_food, get_drinks, get_page
-
+from app.database.models import Position, Cart
 
 class Pagination(CallbackData, prefix='pag'):
     page: int
@@ -16,7 +16,7 @@ async def main_menu_kb():
             InlineKeyboardButton(text="Профиль  ℹ️", callback_data='profile')
         ],
         [
-            InlineKeyboardButton(text="Корзина 🛒", callback_data='data'),
+            InlineKeyboardButton(text="Корзина 🛒", callback_data='cart'),
             InlineKeyboardButton(text="История заказов  ✅", callback_data='history')
         ]
     ]
@@ -84,8 +84,8 @@ async def food_kb(page: int = 1):
     kb.row(*buttons_row)
     kb.row(InlineKeyboardButton(text="В корзину", callback_data=f'cart_food_{position.id}'))
 
-    kb.row(InlineKeyboardButton(text=f"Выход", callback_data=f'go_back'),
-           InlineKeyboardButton(text=f"Корзина", callback_data=f'go_cart')
+    kb.row(InlineKeyboardButton(text=f"Выход", callback_data=f'catalog'),
+           InlineKeyboardButton(text=f"Корзина", callback_data=f'cart')
            )
 
     return kb.as_markup()
@@ -139,7 +139,9 @@ async def drink_kb(page: int = 1):
     kb.row(*buttons_row)
 
     kb.row(InlineKeyboardButton(text=f"Выход", callback_data=f'go_back'),
-           InlineKeyboardButton(text=f"Корзина", callback_data=f'go_cart')
+           InlineKeyboardButton(text=f"Корзина", callback_data=f'cart')
            )
 
     return kb.as_markup()
+
+

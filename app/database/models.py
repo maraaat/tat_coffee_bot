@@ -50,9 +50,18 @@ class Cart(Base):
     quantity: Mapped[int] = mapped_column(BigInteger, default=1)
     user: Mapped[int] = mapped_column(ForeignKey("users.id"))
     position: Mapped[int] = mapped_column(ForeignKey("positions.id"))
+    placed: Mapped[int] = mapped_column(BigInteger, default=0)
+
+
+class Order(Base):
+    __tablename__ = 'orders'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    carts: Mapped[str] = mapped_column(String)
+    total: Mapped[int] = mapped_column(BigInteger)
 
 
 async def async_main():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-

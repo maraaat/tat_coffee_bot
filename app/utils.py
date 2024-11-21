@@ -1,5 +1,5 @@
 from app.database.requests import get_drinks, get_food
-
+from app.database.models import Cart
 
 async def get_drink_by_page(page):
     drinks = await get_drinks()
